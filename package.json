@@ -1,0 +1,30 @@
+{
+  "name": "@sumsol/opencode-notification-plugin",
+  "version": "0.1.0",
+  "description": "An extensible OpenCode plugin for external notifications",
+  "type": "module",
+  "main": "src/index.ts",
+  "module": "src/index.ts",
+  "types": "src/index.ts",
+  "files": [
+    "src"
+  ],
+  "scripts": {
+    "test": "bun test",
+    "lint": "eslint src",
+    "build": "tsc --noEmit"
+  },
+  "dependencies": {
+    "zod": "^4.0.0"
+  },
+  "devDependencies": {
+    "nodemailer": "^8.0.4",
+    "@types/nodemailer": "^6.4.17",
+    "eslint": "^9.39.2",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.56.0"
+  },
+  "peerDependencies": {
+    "@opencode-ai/plugin": "*"
+  }
+}
