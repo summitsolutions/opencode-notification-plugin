@@ -20,8 +20,9 @@ jobs:
       - run: bun run build
       - name: Publish to NPM
         run: |
-          npm config set //registry.npmjs.org/:_authToken ${NODE_AUTH_TOKEN}
-          npm config set @sumsol:registry https://registry.npmjs.org/
+          npm config set //registry.npmjs.org/:_authToken "${{ secrets.NPM_TOKEN }}"
+          npm config list
           npm publish --access public
+
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
