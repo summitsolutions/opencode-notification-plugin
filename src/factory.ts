@@ -1,5 +1,5 @@
-import { Adapter } from './router';
-import { PluginConfig } from './config';
+import type { Adapter } from './router';
+import type { PluginConfig } from './config';
 
 export async function createAdapter(config: PluginConfig['adapters'][number]): Promise<Adapter> {
   if (config.type === 'smtp') {

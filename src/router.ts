@@ -1,4 +1,4 @@
-import { NotificationEvent } from './config';
+import type { NotificationEvent } from './config';
 
 export interface Adapter {
   send(event: NotificationEvent): Promise<void>;

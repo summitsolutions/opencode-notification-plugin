@@ -2,7 +2,7 @@ import { NotificationRouter } from './router';
 import { loadConfig } from './loader';
 import { createAdapter } from './factory';
 
-export const NotificationPlugin = async ({ project }) => {
+export const NotificationPlugin = async ({ project }: { project: any }) => {
   // 1. Load config (assuming it's available in project or a standard file)
   // For now, we will expect a notification-plugin.json in the project root
   const configPath = `${project.directory}/notification-plugin.json`;
@@ -26,7 +26,7 @@ export const NotificationPlugin = async ({ project }) => {
 
   // 3. Return event hook
   return {
-    event: async ({ event }) => {
+    event: async ({ event }: { event: any }) => {
       // Standardize event and dispatch
       await router.dispatch({
         type: event.type,

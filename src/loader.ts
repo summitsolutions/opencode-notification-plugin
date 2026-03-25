@@ -1,4 +1,5 @@
-import { PluginConfigSchema, PluginConfig } from './config';
+import { PluginConfigSchema } from './config';
+import type { PluginConfig } from './config';
 
 export async function loadConfig(rawConfig: unknown): Promise<PluginConfig> {
   const result = await PluginConfigSchema.safeParseAsync(rawConfig);

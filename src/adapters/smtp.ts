@@ -1,5 +1,5 @@
-import { Adapter } from '../router';
-import { PluginConfig } from '../config';
+import type { Adapter } from '../router';
+import type { PluginConfig } from '../config';
 
 export class SmtpAdapter implements Adapter {
   private transporter: any;
