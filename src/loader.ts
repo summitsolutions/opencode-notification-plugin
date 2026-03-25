@@ -1,4 +1,3 @@
-import { z } from 'zod';
 import { PluginConfigSchema, PluginConfig } from './config';
 
 export async function loadConfig(rawConfig: unknown): Promise<PluginConfig> {

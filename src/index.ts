@@ -10,7 +10,7 @@ export const NotificationPlugin = async ({ project }) => {
   try {
     const file = Bun.file(configPath);
     config = await loadConfig(await file.json());
-  } catch (e) {
+  } catch {
     console.warn("[Notification Plugin] No configuration found at", configPath);
     return {};
   }

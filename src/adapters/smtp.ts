@@ -1,20 +1,20 @@
 import { Adapter } from '../router';
 import { PluginConfig } from '../config';
-import type { Transporter } from 'nodemailer';
 
 export class SmtpAdapter implements Adapter {
-  private transporter: Transporter;
-  constructor(private config: Extract<PluginConfig['adapters'][number], { type: 'smtp' }>) {
-    // We expect the user to have installed nodemailer
-    const nodemailer = require('nodemailer');
-    this.transporter = nodemailer.createTransport({
-      host: config.host,
-      port: config.port,
-      auth: config.user ? { user: config.user, pass: config.pass } : undefined,
-    });
-  }
+  private transporter: any;
+  constructor(private config: Extract<PluginConfig['adapters'][number], { type: 'smtp' }>) {}
 
   async send(event: { type: string; title: string; message: string }): Promise<void> {
+    if (!this.transporter) {
+      const nodemailer = await import('nodemailer');
+      this.transporter = nodemailer.createTransport({
+        host: this.config.host,
+        port: this.config.port,
+        auth: this.config.user ? { user: this.config.user, pass: this.config.pass } : undefined,
+      });
+    }
+
     await this.transporter.sendMail({
       from: this.config.from,
       to: 'admin@local.test',

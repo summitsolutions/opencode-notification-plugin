@@ -6,7 +6,7 @@ export async function createAdapter(config: PluginConfig['adapters'][number]): P
     try {
       const { SmtpAdapter } = await import('./adapters/smtp');
       return new SmtpAdapter(config);
-    } catch (e) {
+    } catch {
       throw new Error('SMTP adapter requires `nodemailer`. Please run `npm install nodemailer`');
     }
   }
