@@ -1,21 +1,19 @@
-import { NotificationRouter } from './router';
-import { loadConfig } from './loader';
-import { createAdapter } from './factory';
+import { NotificationRouter } from './router.js';
+import { loadConfig } from './loader.js';
+import { createAdapter } from './factory.js';
+import { promises as fs } from 'fs';
 
 export const NotificationPlugin = async ({ project }: { project: any }) => {
-  // 1. Load config (assuming it's available in project or a standard file)
-  // For now, we will expect a notification-plugin.json in the project root
   const configPath = `${project.directory}/notification-plugin.json`;
   let config;
   try {
-    const file = Bun.file(configPath);
-    config = await loadConfig(await file.json());
-  } catch {
-    console.warn("[Notification Plugin] No configuration found at", configPath);
+    const fileContent = await fs.readFile(configPath, 'utf-8');
+    config = await loadConfig(JSON.parse(fileContent));
+  } catch (err) {
+    console.error("[Notification Plugin] Error loading configuration:", err);
     return {};
   }
 
-  // 2. Initialize Router and Adapters
   const router = new NotificationRouter();
   for (const adapterConfig of config.adapters) {
     if (adapterConfig.enabled) {
@@ -24,10 +22,8 @@ export const NotificationPlugin = async ({ project }: { project: any }) => {
     }
   }
 
-  // 3. Return event hook
   return {
     event: async ({ event }: { event: any }) => {
-      // Standardize event and dispatch
       await router.dispatch({
         type: event.type,
         title: `Event: ${event.type}`,
